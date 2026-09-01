@@ -1,0 +1,5 @@
+# Fim de linha do Linux, mesmo clonado no Windows.
+* text=auto eol=lf
+*.mjs text eol=lf
+*.md text eol=lf
+*.exemplo text eol=lf

@@ -1,0 +1,6 @@
+# O token da Meta dá poder de enviar mensagem em nome do seu número.
+# Nada de credencial entra no git — nem por engano, nem "só para testar".
+.env.local
+*.env
+!.env.exemplo
+node_modules/
