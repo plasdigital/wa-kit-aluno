@@ -11,7 +11,8 @@
 - **Saída:** `whatsapp_business_messaging` e `whatsapp_business_management` em **Acesso Avançado**,
   Embedded Signup abrindo sem erro, e o número do cliente em coexistência.
 - **Tempo real:** ~4 h de trabalho seu, espalhadas em **10 dias corridos** de espera da Meta.
-- **Escrito em:** 01/set/2026.
+- **Escrito em:** 01/set/2026 · **revisado em 02/set/2026** — §5.3, §5.3.1 e §8 reconferidos contra
+  a tela real de uma nova submissão (nomes das abas mudaram de tradução).
 
 > **Este documento é o detalhe dos §6 e §7 do [manual mestre](MANUAL-SUBIR-NUMERO.md).**
 > Lá está a lógica (qual caminho é o seu, o que a coexistência custa); aqui está a execução, tela
@@ -28,6 +29,7 @@
 | **Liberar o Embedded Signup dentro do Chatwoot** | [§3](#3--a-ferramenta-preparar-o-chatwoot) |
 | Preparar o app na Meta (URLs, domínios, configuração de login, webhooks) | [§4](#4--o-app-na-meta-o-lado-tech-provider) |
 | **Preencher o formulário do App Review** | [§5](#5--o-app-review-o-formulário-aba-por-aba) |
+| O cartão de cada permissão, item por item, com o texto da tela | [§5.3.1](#531--dentro-do-cartão-da-permissão-item-por-item) |
 | **Gravar os dois vídeos** | [§6](#6--os-dois-vídeos) |
 | Os textos que vão no formulário | [§7](#7--os-textos-do-use_case) |
 | Responder o questionário de dados | [§8](#8--data-use-checkup) |
@@ -396,15 +398,58 @@ São **por permissão**, o que significa fazer tudo duas vezes.
 
 ## 5.3 — As 4 abas da tela
 
-O formulário tem quatro abas no topo: **Verificação · Configurações do app · Uso permitido ·
-Tratamento de dados**.
+A tela se chama **"Solicitação de avaliação do aplicativo"** e tem, no topo, uma barra de progresso
+com quatro etapas — **Verificação · Configurações do aplicativo · Uso permitido · Manipulação de
+dados**. Cada etapa tem um tracinho que fica **verde** quando fecha; a que está aberta aparece em
+**negrito**.
 
 - **Verificação** — a verificação do negócio (§0.5 item 3). Verde antes de começar.
-- **Configurações do app** — o que você já preencheu no §4.2. Confirme, não mexa.
-- **Uso permitido** — 🎯 **é aqui que se trabalha**: um cartão por permissão, com texto + vídeo.
-- **Tratamento de dados** — o `data_use_checkup` do §8.
+- **Configurações do aplicativo** — o que você já preencheu no §4.2. Confirme, não mexa.
+- **Uso permitido** — 🎯 **é aqui que se trabalha**: um cartão por permissão, com texto + vídeo (§5.3.1).
+- **Manipulação de dados** — o `data_use_checkup` do §8. É a **última** e é a que se esquece:
+  enquanto o tracinho dela estiver cinza, o envio não fecha.
 
-A Meta salva sozinha (*"Salvo automaticamente"*), então dá para sair no meio e voltar.
+⚠️ **Os nomes das abas mudam de tradução.** Já apareceram como *"Configurações do app"* e
+*"Tratamento de dados"*; em 02/set/2026 a tela mostra *"Configurações do aplicativo"* e
+*"Manipulação de dados"*. Em inglês: *Verification · App settings · Permitted usage · Data
+handling*. **São as mesmas quatro** — não procure aba que não existe.
+
+A Meta salva sozinha (*"Salvo automaticamente"*, no canto direito da barra), então dá para sair no
+meio e voltar.
+
+## 5.3.1 — Dentro do cartão da permissão, item por item
+
+A aba **Uso permitido** abre com dois cartões, um por permissão:
+
+- *"Como este aplicativo usará o whatsapp_business_messaging?"*
+- *"Como este aplicativo usará o whatsapp_business_management?"*
+
+Fechado, o cartão mostra só o título e um botão à direita: **"Comece agora"** enquanto está vazio,
+**"Editar"** depois de preenchido. O **✅ verde** à esquerda do título é o sinal de sucesso daquela
+permissão. No alto da aba há ainda o link *"edite-o"* — é por ali que se **remove** uma permissão do
+envio, e é o conserto de quem clicou demais na tela de permissões (§5.1).
+
+Aberto, o cartão tem **quatro itens de conferência**, cada um com sua bolinha, mais um campo de
+texto solto:
+
+| # | O texto na tela | O que é, na prática | Onde resolver |
+|---|---|---|---|
+| 1 | *"Descreva como seu aplicativo usa essa permissão ou recurso"* | o `use_case` — abre um modal de texto livre, **um por permissão, diferentes entre si** | §7 |
+| 2 | *"Faça o upload de uma gravação de tela mostrando a experiência completa do usuário"* | o `screencast` — **um arquivo por cartão**, nunca o mesmo vídeo nos dois | §6 |
+| 3 | *"Certifique-se de ter realizado as chamadas de teste de API necessárias"* (já apareceu como *"Verifique se você fez as ligações de teste de API exigidas"*) | o `api_precheck` — **não se preenche**: fecha sozinho quando a Meta registra a chamada, o que leva até 2 dias | §5.4 |
+| 4 | *"Concordo em cumprir as normas de utilização"* | o aceite das políticas de mensagens do WhatsApp Business. É um clique — mas é declaração, não formalidade | — |
+
+Acima do primeiro item, o cartão traz a linha *"Analise as políticas do WhatsApp Business Messages
+e diga-nos como pretende utilizá-lo"*, e abaixo dos quatro, **fora do modal**, o campo **"Descrição
+do negócio"** — uma frase sobre a empresa, igual nas duas permissões (§7.4).
+
+⚠️ **Estas 4 caixinhas da tela não são as 4 etapas da API do §5.2** — o nome parecido engana. Na
+tela, a quarta é o aceite das normas; na API, a quarta é o `data_use_checkup`, que mora na **outra
+aba** (§8). Somando as duas listas, são **cinco coisas** por permissão, e a quinta é comum às duas.
+
+🧱 **Onde trava:** o item 3. Ele não tem botão, não tem campo e não adianta insistir — se está
+aberto, é porque a chamada não foi feita ou ainda não apareceu no log da Meta. Faça a chamada do
+§5.4 e volte no dia seguinte.
 
 **Como chegar:** `developers.facebook.com/apps/<APP_ID>/app-review/permissions/`
 Pelo menu: *Casos de uso → (o caso de uso do WhatsApp) → Personalizar → Tech Provider onboarding →
@@ -704,22 +749,49 @@ Questionário sobre práticas de tratamento de dados. **Não é texto livre: sã
 compromisso do app.** Responda o que é verdade hoje — marcar caixa que não se cumpre é pior do que
 marcar "Nenhuma das acima", porque a Meta usa isso em auditoria, não na aprovação.
 
-🚫 **Também aqui, não use o "Perguntar para a IA"** — ele responde pelo tech provider genérico.
+**Onde ele fica:** é a **quarta etapa** da mesma tela do App Review (§5.3), sob o título
+**"Manipulação de dados"** — não é página separada, nem o e-mail anual de *Data Use Checkup* que a
+Meta manda para o app. É o mesmo questionário aparecendo dentro do envio.
+
+🧱 **O questionário rola dentro de um quadro com barra de rolagem própria**, e é a armadilha da
+tela: o fim do que você está vendo **não é o fim das perguntas**. São cinco (`processador-0`,
+`processador-2`, `responsável-1`, `responsável-2`, `solicitações-3`, `solicitações-4`) e as últimas
+só aparecem rolando **dentro** do quadro, não a página.
+
+🔁 **Se o app já respondeu isso alguma vez, vem pré-preenchido.** A tela avisa: *"Revisar antes de
+enviar — para poupar tempo, preenchemos previamente as perguntas sobre o tratamento de dados com as
+respostas mais recentes enviadas por esta aplicação. Você deve revisar todas as respostas
+preenchidas previamente e confirmar se estão corretas antes de enviar esta avaliação."* Leia isso
+ao pé da letra: **pré-preenchido não é conferido**. As respostas podem ser de outro cliente, de
+antes de você trocar de hospedagem, ou de uma época em que não havia processador nenhum — e é você
+que assina o que ficar lá.
+
+🚫 **Também aqui, não use o "Perguntar à IA"** (botão no canto superior direito do quadro) — ele
+responde pelo tech provider genérico.
 
 **O gabarito respondido em 18/ago/2026, campo a campo:**
 
-| Campo | Resposta |
-|---|---|
-| `processador-0` — há processadores/provedores com acesso aos Dados da Plataforma? | **Sim** (a tradução da tela exibe a opção como *"Tentar"* — é o "Yes" do original) |
-| `responsável-1` — entidade controladora | razão social + nome fantasia, **batendo com o que foi verificado** em *Business settings → Informações do negócio* |
-| `responsável-2` — país da controladora | Brasil |
-| `solicitações-3` — forneceu dados a autoridades por segurança nacional nos últimos 12 meses? | **Não** (mandado judicial e investigação criminal **não** contam — o enunciado exclui) |
-| `solicitações-4` — políticas sobre pedidos de autoridades | análise da legalidade · minimização de dados · documentação das solicitações |
+| Campo | O que a tela pergunta | Resposta |
+|---|---|---|
+| `processador-0` | há processadores de dados ou provedores de serviços — **inclusive empresas suas** — com acesso aos Dados da Plataforma? (rádio Sim/Não) | **Sim** |
+| `processador-2` | *"Liste todos os processadores de dados ou prestadores de serviços…"* (botão **"+ Adicionar processador de dados ou provedor de serviços"**) | um cadastro para cada — ver a tabela abaixo |
+| `responsável-1` | quem é a pessoa ou entidade **controladora** dos Dados da Plataforma (campo de texto livre) | razão social + nome fantasia, **batendo com o que foi verificado** em *Business settings → Informações do negócio* |
+| `responsável-2` | país onde essa entidade está (lista suspensa) | Brasil |
+| `solicitações-3` | forneceu dados pessoais a autoridades por **segurança nacional** nos últimos 12 meses? | **Não** (mandado judicial e investigação criminal **não** contam — o enunciado exclui). As opções "Sim" são por faixa: *~10 usuários ou menos*, *cerca de 11 a 100*, e assim por diante |
+| `solicitações-4` | políticas em vigor sobre pedidos de autoridades (várias caixas) | análise da legalidade · minimização de dados · documentação das solicitações |
 
-Ficou **de fora** de `solicitações-4` a opção *"Disposições para contestar esses pedidos"*: pressupõe
-estrutura jurídica para litigar.
+⚠️ **"Dados da Plataforma" é o vocabulário da Meta**, e é mais largo do que parece: qualquer dado
+que você recebe dela — ID de usuário, e-mail, foto de perfil, **token de acesso e segredo do app**.
+Quem hospeda seu sistema toca nisso, mesmo sem nunca abrir uma conversa.
 
-**Os processadores** (o modal é um por processador — preencher uma vez para cada):
+Ficou **de fora** de `solicitações-4` a opção *"Disposições para contestar esses pedidos caso sejam
+considerados ilegais"*: pressupõe estrutura jurídica para litigar. As outras duas que existem na
+lista e também ficaram de fora são *"Nenhuma das acima"* (contradiz as três marcadas) e *"Somos
+proibidos por lei ou pelas normas da empresa de responder a esta pergunta"*.
+
+**Os processadores** — o botão de `processador-2` abre **um modal por processador**; clique de novo
+para cada um. Não existe outra tela para cadastrá-los: responder **Sim** em `processador-0` e não
+voltar aqui para listar deixa a etapa incompleta.
 
 | Campo | Exemplo: a hospedagem | Exemplo: a agência |
 |---|---|---|
@@ -733,6 +805,12 @@ estrutura jurídica para litigar.
 >
 > ⚠️ **Marcar "Não" em `processador-0` é a inconsistência clássica:** dizer que não há processador
 > enquanto os dados moram em VPS alugada.
+
+**Quem entra na lista, na dúvida:** todo mundo que **hospeda, guarda ou opera** o que passa pelo seu
+sistema. A régua é *"se essa empresa sumisse amanhã, algum dado da Meta sumiria junto — ou ficaria
+inacessível?"*. Na configuração deste manual são dois: **a hospedagem** (a VPS onde a ferramenta do
+§3 roda) e **a própria agência**, que administra o sistema em nome do cliente. Se o banco de dados
+ou os anexos estiverem em outro fornecedor, ele é um terceiro cadastro.
 
 **Papéis, para não errar na hora:** o **controlador é o cliente** (é dele o dado e a decisão de uso);
 **a agência e a hospedagem são operadores**, agindo sob instrução. Se a pergunta falar em
@@ -910,7 +988,11 @@ renovar, a inbox cai sem aviso. **Verifique antes de considerar a entrega fechad
 - [ ] Vídeo 2 mostra o envio **e** a chegada, sem corte no meio
 - [ ] Descrição escrita nas **duas** permissões, diferentes entre si
 - [ ] Nenhuma permissão além das duas no carrinho
-- [ ] Data Use Checkup respondido
+- [ ] *"Concordo em cumprir as normas de utilização"* marcado nos **dois** cartões
+- [ ] Descrição do negócio preenchida nos dois cartões
+- [ ] Data Use Checkup respondido — **rolando o quadro até `solicitações-4`**
+- [ ] Respostas pré-preenchidas **relidas** uma a uma (não são conferidas)
+- [ ] Todo processador cadastrado em `processador-2`, se `processador-0` é "Sim"
 - [ ] Nada mexido em *Configurações → Básico*
 
 **Depois de aprovado**

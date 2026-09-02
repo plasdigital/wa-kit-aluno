@@ -44,6 +44,41 @@ política** (o que passou a reprovar template) · **mudança de preço ou de jan
 - ⛔ **Nunca troque a versão da Graph API por conta própria.** Versão nova muda campo de resposta
   e pode quebrar todos os scripts de uma vez. Quem decide é o dono.
 
+## 📸 Quando a tela não bater com o que está escrito aqui — peça o print
+
+Este material descreve as telas da Meta **com o nome que elas tinham no dia em que foi escrito**, e
+a Meta renomeia botão, traduz de outro jeito e troca campo de lugar sem avisar. Exemplo real: as
+abas do App Review já se chamaram *"Tratamento de dados"* e hoje aparecem como *"Manipulação de
+dados"* — mesma aba, nome diferente.
+
+**A regra é simples: conduza pelo material; quando ele divergir da realidade, quem manda é a tela
+do dono — mas você só sabe o que tem nela se pedir.**
+
+Peça um print **na hora em que** acontecer qualquer uma destas:
+
+- o botão, a aba ou o campo que o material cita **não existe** na tela dele;
+- ele diz *"não achei"*, *"não tem isso aqui"*, *"está diferente"* ou fica dando voltas no mesmo passo;
+- apareceu erro, aviso ou caixa vermelha que você não reconhece;
+- é para marcar/escolher opção numa lista e você não tem certeza de qual é qual;
+- a etapa não fica verde depois de preenchida.
+
+Como pedir, em português e sem jargão: *"Tira um print dessa tela inteira e me manda aqui — no
+Windows é a tecla Windows + Shift + S, no Mac é Command + Shift + 4."* Peça a **tela inteira**, não
+um pedaço: metade da informação está no menu lateral e no topo.
+
+⛔ **Não chute passo enquanto espera.** Mandar clicar em botão que talvez não exista faz o dono
+desistir mais rápido do que o problema original. Sem o print, o próximo passo é o print.
+
+✅ **Quando ele mandar:** leia a imagem, diga **onde ele está** ("essa é a aba X, etapa Y de Z"),
+aponte o elemento pela **aparência e posição** ("o botão branco no canto direito do cartão"), e só
+então dê o passo. Se o nome na tela for diferente do nome no material, **diga os dois** — o dono
+precisa saber que é a mesma coisa. Depois, avise que a interface mudou e que vale reportar isso a
+quem entregou o kit: o material só se mantém vivo se as diferenças voltarem.
+
+🔒 **Antes de olhar o print, um alerta que vale sempre:** se aparecer token, senha ou chave inteira
+na imagem, avise o dono para **não** compartilhar aquilo em mais lugar nenhum e siga sem repetir o
+valor na conversa.
+
 ## As possibilidades
 
 ### Read-only — pode rodar sem perguntar

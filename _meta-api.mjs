@@ -40,6 +40,35 @@ function lerArquivoEnv(caminho, obrigatorio) {
 }
 
 /**
+ * Os segredos já vistos, para nunca serem impressos de volta.
+ *
+ * 🔴 Achado em 01/set/2026, testando o kit do aluno: quando o token está malformado (colado com
+ * espaço, cortado no meio), a Meta devolve `Malformed access token <o token inteiro>` — e nós
+ * imprimíamos a mensagem crua dela. Ou seja: o script que promete nunca mostrar o token o
+ * mostrava exatamente na hora em que o dono ia colar a saída num chat pedindo ajuda.
+ */
+const SEGREDOS = new Set();
+
+function registrarSegredos(env) {
+  for (const [chave, valor] of Object.entries(env)) {
+    if (typeof valor === 'string' && valor.length >= 12 && !/_VERSION$|_VERSAO$/.test(chave)) {
+      SEGREDOS.add(valor);
+    }
+  }
+  return env;
+}
+
+/** Troca qualquer segredo conhecido por uma marca. Usar em TODO texto que a Meta devolve. */
+export function mascarar(texto) {
+  if (typeof texto !== 'string') return texto;
+  let saida = texto;
+  for (const s of SEGREDOS) {
+    if (s && saida.includes(s)) saida = saida.split(s).join(`${s.slice(0, 6)}…[oculto]`);
+  }
+  return saida;
+}
+
+/**
  * Base (esta pasta) + overlay opcional. Chave vazia no overlay não sobrescreve.
  */
 export function carregarEnv(caminhoExtra) {
@@ -47,13 +76,13 @@ export function carregarEnv(caminhoExtra) {
   // arquivo) têm que rodar sem credencial nenhuma. Quem precisa de chave chama
   // `exigir()`, que reclama com uma mensagem melhor do que "arquivo não existe".
   const base = lerArquivoEnv(join(AQUI, '.env.local'), false);
-  if (!caminhoExtra) return base;
+  if (!caminhoExtra) return registrarSegredos(base);
 
   const alvo = isAbsolute(caminhoExtra) ? caminhoExtra : resolve(process.cwd(), caminhoExtra);
   const extra = lerArquivoEnv(alvo, true);
   const junto = { ...base };
   for (const [k, v] of Object.entries(extra)) if (v !== '') junto[k] = v;
-  return junto;
+  return registrarSegredos(junto);
 }
 
 /** Separa `--flag valor` / `--flag` dos argumentos soltos. */
@@ -128,9 +157,9 @@ export function relatar(resultado, sucesso) {
   const e = resultado.json?.error ?? {};
   console.log(`\n❌ Falhou (HTTP ${resultado.status})`);
   console.log(`   código: ${e.code ?? '?'}${e.error_subcode ? ` / subcódigo ${e.error_subcode}` : ''}`);
-  console.log(`   mensagem: ${e.message ?? '(sem mensagem)'}`);
-  if (e.error_user_title) console.log(`   título: ${e.error_user_title}`);
-  if (e.error_user_msg) console.log(`   detalhe: ${e.error_user_msg}`);
+  console.log(`   mensagem: ${mascarar(e.message) ?? '(sem mensagem)'}`);
+  if (e.error_user_title) console.log(`   título: ${mascarar(e.error_user_title)}`);
+  if (e.error_user_msg) console.log(`   detalhe: ${mascarar(e.error_user_msg)}`);
   if (ERROS[e.code]) console.log(`\n   → ${ERROS[e.code]}`);
   if (e.fbtrace_id) console.log(`\n   fbtrace_id: ${e.fbtrace_id}  (informe isso se abrir suporte com a Meta)`);
   console.log('');
