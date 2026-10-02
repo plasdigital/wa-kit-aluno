@@ -350,6 +350,24 @@ Assine três campos:
 ⚠️ **Verificar a URL não é assinar o campo.** São dois botões diferentes na mesma tela. Fica tudo
 verde, sem erro nenhum, e o número continua mudo.
 
+🔁 **O ovo e a galinha da caixa manual** (achado num caso real, 29/set/2026, Chatwoot 4.16):
+- a URL do webhook só responde ao desafio com o verify token de uma caixa que **já existe**;
+- só que a caixa manual `whatsapp_cloud` roda `setup_webhooks` sozinha ao ser criada, e isso **falha**
+  se o app ainda não tem webhook de base. A falha cai em `prompt_reauthorization!`: a caixa fica
+  marcada como "reconectar" e **os administradores da conta recebem e-mail**.
+
+Ordem limpa:
+1. Criar a caixa por `rails runner` com `Channel::Whatsapp.skip_callback(:commit, :after, :setup_webhooks)`,
+   que só vale para aquele processo. Ponha o PIN que já existe em `provider_config['verification_pin']`,
+   senão ele gera outro se tiver que registrar o número.
+2. Configurar o webhook do app: `POST /<APP_ID>/subscriptions` com o token do app (`APP_ID|SECRET`),
+   `object=whatsapp_business_account`, `fields=messages,smb_message_echoes,account_update`.
+   ✅ Funciona **mesmo com "alterar configurações pela API" desligado** (o `#10` é só do `POST /<APP_ID>`).
+3. `Whatsapp::WebhookSetupService.new(canal).perform`: assina o app na WABA e faz o override no número.
+
+Pela tela do Chatwoot, o jeito é o inverso: configurar primeiro o webhook do app no painel da Meta
+com uma caixa já criada.
+
 ---
 
 # 5 · O App Review: o formulário, aba por aba

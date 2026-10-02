@@ -200,6 +200,11 @@ Com um número seu funcionando, a ordem é:
 
 Tudo isso, tela por tela, está em [`docs/MANUAL-APP-REVIEW.md`](docs/MANUAL-APP-REVIEW.md).
 
+> 🎯 **No dia de conectar:** **digite** o número do cliente, não escolha na lista. Se ele vier
+> *inelegível*, o código do erro diz onde resolver — está tudo em
+> [`docs/MANUAL-NUMERO-INELEGIVEL.md`](docs/MANUAL-NUMERO-INELEGIVEL.md). Um que a Meta não
+> documenta, e que já travou um caso real: as **listas automáticas** ligadas no celular (`#3441061`).
+
 > 🗣️ **O jeito mais rápido de usar isto:** abra seu agente de IA nesta pasta e diga
 > *"leia o CLAUDE.md e me conduza pelo App Review, uma etapa por vez, conferindo a documentação
 > oficial antes de cada passo"*.

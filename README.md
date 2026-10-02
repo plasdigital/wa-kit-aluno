@@ -36,7 +36,9 @@ forem rodados na hora errada.
    caminhos, o vocabulário, o catálogo de erros e quanto custa cada conversa.
 3. **[`docs/MANUAL-APP-REVIEW.md`](docs/MANUAL-APP-REVIEW.md)** — o App Review tela por tela: o
    formulário, os dois vídeos, os textos e o dia de conectar o número do cliente.
-4. `CLAUDE.md` e `AGENTS.md` — não são para você. São para o seu agente de IA.
+4. **[`docs/MANUAL-NUMERO-INELEGIVEL.md`](docs/MANUAL-NUMERO-INELEGIVEL.md)** — quando o número do
+   cliente aparece como *inelegível* na coexistência: cada código de erro e onde se resolve.
+5. `CLAUDE.md` e `AGENTS.md` — não são para você. São para o seu agente de IA.
 
 ## Os scripts
 

@@ -152,6 +152,8 @@ Se ele precisar conferir, mostre os 6 primeiros caracteres e o tamanho.
 | A tela "trocar PIN" do Manager falha **sempre** | O PIN **nasce no `register`**. Número não registrado não tem PIN — não existe o que trocar |
 | O painel tem o número, mas nada envia | O painel **não registra** número. Quem registra é `POST /register`, só por API |
 | `#2655111` no Embedded Signup | Falta **Acesso Avançado** — ou seja, falta App Review aprovado |
+| Número *"Ineligible — This number can't be shared with this app"* na lista do Embedded Signup | Aviso genérico, sem motivo. Mande o aluno **digitar** o número (opção *conectar um app do WhatsApp Business*) em vez de escolher na lista — a Meta devolve o erro com código. Aí, [`docs/MANUAL-NUMERO-INELEGIVEL.md`](docs/MANUAL-NUMERO-INELEGIVEL.md) |
+| `#3441061`, *"linked to Automatic Events"* | Listas automáticas ligadas no celular: *Ferramentas comerciais → Listas* → desligar. **Não está na doc da Meta** |
 | A API diz `screencast: false` com a submissão aceita | Divergência conhecida entre API e tela. **Quem manda é o formulário.** Não tente consertar durante a análise |
 | `grant_status: REJECTED` numa permissão que ninguém pediu | É o estado padrão de permissão nunca analisada. **Não** é reprovação |
 | O número está `CONNECTED` e não chega mensagem | Webhook: o campo `messages` precisa estar **assinado**, não só a URL cadastrada |
@@ -164,6 +166,7 @@ Se ele precisar conferir, mostre os 6 primeiros caracteres e o tamanho.
 | A ordem completa, do zero, com o que trava onde | [`COMECE-AQUI.md`](COMECE-AQUI.md) |
 | O manual inteiro: os dois caminhos, os erros, o preço | [`docs/MANUAL-SUBIR-NUMERO.md`](docs/MANUAL-SUBIR-NUMERO.md) |
 | O App Review tela por tela, os dois vídeos, os textos | [`docs/MANUAL-APP-REVIEW.md`](docs/MANUAL-APP-REVIEW.md) |
+| O número do cliente não entra na coexistência ("inelegível", código de erro) | [`docs/MANUAL-NUMERO-INELEGIVEL.md`](docs/MANUAL-NUMERO-INELEGIVEL.md) — cada código, e se resolve no celular, no portfólio ou no app |
 | A VPS com Chatwoot que a coexistência exige | [github.com/plasdigital/vps-kit-aluno](https://github.com/plasdigital/vps-kit-aluno) |
 
 **Leia o manual antes de responder qualquer pergunta de "por quê".** Ele é longo de propósito:

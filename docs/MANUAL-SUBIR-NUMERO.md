@@ -30,6 +30,7 @@ Este documento é longo de propósito: é a **referência única**, não um resu
 | Número **que a loja já usa no celular** | **§6 — Caminho B** |
 | Passar pelo App Review | **§7** |
 | Consertar algo que quebrou | **§8** — catálogo de erros |
+| Número **inelegível** na coexistência | [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md) — cada código e onde se resolve |
 | Saber o que custa | **§9** |
 | Conferir se terminou | **§10** — checklists |
 
@@ -858,7 +859,11 @@ Combine hora com a loja. Alguém precisa estar **com o celular na mão**, no bal
 
 1. Na ferramenta, rode o **Embedded Signup**.
 2. Escolha **o portfólio do cliente** — que agora aparece **habilitado** (se estiver cinza, releia §3.3).
-3. Escolha **"Conectar um app do WhatsApp Business"** e digite o número da loja.
+3. Escolha **"Conectar um app do WhatsApp Business"** e **digite** o número da loja — não escolha na
+   lista de números do portfólio: lá ele pode aparecer só como *Ineligible*, sem motivo. Digitado, a
+   Meta devolve o erro com código. Antes de começar, **desligue as listas automáticas** no celular
+   (*Ferramentas comerciais → Listas*): elas bloqueiam com o `#3441061`. Todos os bloqueios estão em
+   [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md).
 4. O WhatsApp mostra um **código de verificação**.
 5. No celular, chega mensagem da **Official Facebook Business Account** → **"Connect"** → **"Connect
    to the Business Platform"** → **"Confirm"** (é aqui que se decide compartilhar o histórico) → cola
@@ -1040,6 +1045,9 @@ notificações da análise — dá para acompanhar pelo painel.
 | Erro de domínio não autorizado | domínio faltando em `js_sdk_host_domains` **ou** `oauth_redirect_uris` | autorize nos **dois** campos |
 | Fluxo trava no celular | app WhatsApp Business < 2.24.17 | atualizar o app antes |
 | Histórico não sincronizou | passou da janela de 24 h | desconectar e refazer |
+| Número *"Ineligible — This number can't be shared with this app"* na lista | aviso genérico, sem motivo | **digite** o número em vez de escolher na lista: a Meta mostra o código real |
+| **`#3441061`** — *"linked to Automatic Events"* | listas automáticas ligadas no app | celular: *Ferramentas comerciais → Listas* → desligar |
+| Qualquer outro código de **número** (`#3441049`, `#2655082`, `#3441045`…) | — | [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md): cada código, e onde se resolve |
 
 ## 8.4 — Webhook mudo
 
@@ -1172,6 +1180,7 @@ disso.
 - [ ] Loja avisada: dispositivos vinculados caem, transmissão desativada, app ≥ 2.24.17
 - [ ] Testado antes com número descartável
 - [ ] Portfólio do cliente aparece **habilitado** no popup
+- [ ] Listas automáticas **desligadas** no app (senão `#3441061`) e o número **digitado**, não escolhido na lista
 - [ ] Alguém no balcão confirma no celular
 - [ ] Sincronização feita **dentro da janela de 24 h**
 
@@ -1204,6 +1213,7 @@ disso.
 | Os scripts (`diagnostico-numero`, `registrar-numero`, `templates`, `upload-midia`) | a raiz desta pasta |
 | O passo a passo enxuto, do zero | [`../COMECE-AQUI.md`](../COMECE-AQUI.md) |
 | O App Review, tela por tela | [`MANUAL-APP-REVIEW.md`](MANUAL-APP-REVIEW.md) |
+| Número inelegível na coexistência — cada código, onde resolve | [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md) |
 | O que pedir ao seu agente de IA, com o comando de cada coisa | [`../CLAUDE.md`](../CLAUDE.md) |
 | VPS + Chatwoot do zero (a ferramenta do §6.1) | [github.com/plasdigital/vps-kit-aluno](https://github.com/plasdigital/vps-kit-aluno) |
 | A documentação oficial da Meta | [developers.facebook.com](https://developers.facebook.com/documentation/business-messaging/whatsapp/) |
