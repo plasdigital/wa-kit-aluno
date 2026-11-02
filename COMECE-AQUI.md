@@ -1,12 +1,14 @@
 # Comece aqui — do zero até o número enviando pela API oficial
 
 Este arquivo é a ordem. Ele parte de **quem nunca abriu o developers.facebook.com** e vai até a
-primeira mensagem saindo pela API. O detalhe de cada etapa está nos dois manuais em `docs/` —
-aqui está só a corrente, na ordem que funciona.
+primeira mensagem saindo pela API. O detalhe de cada etapa está nos manuais em `docs/` —
+aqui está só a corrente, na ordem que funciona. Vai ligar o número de um **cliente** pela
+coexistência? A ordem desse caso, com quem faz o quê, está em
+[`docs/SEQUENCIA-COEXISTENCIA.md`](docs/SEQUENCIA-COEXISTENCIA.md).
 
 > 🗣️ **Você não precisa decorar comando nenhum.** Abra o Claude Code (ou Codex, ou Cursor) dentro
 > desta pasta e converse em português: *"me conduza pelo Caminho A, uma etapa por vez"*. A pasta
-> se explica sozinha para ele — é o que o `CLAUDE.md` faz.
+> se explica sozinha para ele — é o que o `AGENTS.md` faz.
 
 ---
 
@@ -206,5 +208,5 @@ Tudo isso, tela por tela, está em [`docs/MANUAL-APP-REVIEW.md`](docs/MANUAL-APP
 > documenta, e que já travou um caso real: as **listas automáticas** ligadas no celular (`#3441061`).
 
 > 🗣️ **O jeito mais rápido de usar isto:** abra seu agente de IA nesta pasta e diga
-> *"leia o CLAUDE.md e me conduza pelo App Review, uma etapa por vez, conferindo a documentação
+> *"leia o AGENTS.md e me conduza pelo App Review, uma etapa por vez, conferindo a documentação
 > oficial antes de cada passo"*.

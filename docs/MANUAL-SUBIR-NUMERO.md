@@ -1214,7 +1214,7 @@ disso.
 | O passo a passo enxuto, do zero | [`../COMECE-AQUI.md`](../COMECE-AQUI.md) |
 | O App Review, tela por tela | [`MANUAL-APP-REVIEW.md`](MANUAL-APP-REVIEW.md) |
 | Número inelegível na coexistência — cada código, onde resolve | [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md) |
-| O que pedir ao seu agente de IA, com o comando de cada coisa | [`../CLAUDE.md`](../CLAUDE.md) |
+| O que pedir ao seu agente de IA, com o comando de cada coisa | [`../AGENTS.md`](../AGENTS.md) |
 | VPS + Chatwoot do zero (a ferramenta do §6.1) | [github.com/plasdigital/vps-kit-aluno](https://github.com/plasdigital/vps-kit-aluno) |
 | A documentação oficial da Meta | [developers.facebook.com](https://developers.facebook.com/documentation/business-messaging/whatsapp/) |
 

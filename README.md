@@ -13,7 +13,7 @@ Abra o **Claude Code** (ou Codex, Cursor, Antigravity) dentro desta pasta e conv
 
 > *"me conduza pelo Caminho A, uma etapa por vez"*
 
-A pasta se explica sozinha para o agente — é o que o `CLAUDE.md` faz. Ele já sabe quais comandos
+A pasta se explica sozinha para o agente — é o que o `AGENTS.md` faz. Ele já sabe quais comandos
 existem, quais são seguros de rodar sem perguntar, e quais travam o seu número por 72 horas se
 forem rodados na hora errada.
 
@@ -38,7 +38,10 @@ forem rodados na hora errada.
    formulário, os dois vídeos, os textos e o dia de conectar o número do cliente.
 4. **[`docs/MANUAL-NUMERO-INELEGIVEL.md`](docs/MANUAL-NUMERO-INELEGIVEL.md)** — quando o número do
    cliente aparece como *inelegível* na coexistência: cada código de erro e onde se resolve.
-5. `CLAUDE.md` e `AGENTS.md` — não são para você. São para o seu agente de IA.
+5. **[`docs/SEQUENCIA-COEXISTENCIA.md`](docs/SEQUENCIA-COEXISTENCIA.md)** — para quem vai ligar o
+   WhatsApp de um **cliente** pela coexistência: as 14 etapas na ordem (BM nova, verificação, VPS,
+   app, App Review, dia da conexão), quem faz cada uma e o que trava onde.
+6. `AGENTS.md` e `CLAUDE.md` — não são para você. São para o seu agente de IA.
 
 ## Os scripts
 

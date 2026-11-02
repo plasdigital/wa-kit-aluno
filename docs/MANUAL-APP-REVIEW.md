@@ -263,6 +263,11 @@ Business"** ao lado de *"Criar uma conta do WhatsApp Business"*. Se só aparece 
 **No portfólio da AGÊNCIA. Nunca no do cliente.** Esta é a regra que custou duas semanas no caso real
 loja.
 
+> 🔄 **Atualizado em 22/out/2026:** a regra de fundo é *"o portfólio dono do app nunca é o portfólio
+> dos números"*. Desde out/2026, o padrão é o cliente criar uma **BM nova só para o
+> app**, no nome dele e verificada, e os números continuarem na BM principal. O portfólio da agência
+> segue valendo como alternativa. Ordem completa e travas: [`SEQUENCIA-COEXISTENCIA.md`](SEQUENCIA-COEXISTENCIA.md).
+
 O Embedded Signup roda sobre o Facebook Login para Empresas, que é um **ato de concessão entre duas
 partes**: a empresa A autoriza o app da empresa B. Quando o portfólio já é dono do app, não existe o
 que conceder — e a Meta desabilita a linha do cliente com a etiqueta:
@@ -314,6 +319,8 @@ parece ser da ferramenta quando é configuração da Meta.**
 **Criar a configuração de login:** *Login do Facebook para Empresas → Configurações → **Criar do
 modelo*** → **"Configuração do cadastro incorporado do WhatsApp com token de expiração em 60 dias"**.
 A Meta monta variação, produtos, ativos e permissões sozinha. Anote o `config_id`.
+⚠️ Se a lista de modelos oferecer a variante de token **sem vencimento**, prefira ela: o Chatwoot
+não renova o token de 60 dias (§11.8).
 
 > ⚠️ **Nunca monte à mão pelo assistente.** O **contador de permissões não volta atrás**: desmarcar
 > um produto tira a permissão da lista visível, mas não do contador. A tela chega a exibir *"7
@@ -540,6 +547,13 @@ Da [guia oficial de screen recordings](https://developers.facebook.com/docs/app-
 ffmpeg -i bruto.mp4 -t 150 -an -vf "subtitles=legendas.srt" -c:v libx264 -crf 20 final.mp4
 ```
 
+> 📏 **Regra (26/out/2026), vale para todo cliente: mensagens curtas, de no máximo 3 ou 4
+> palavras.** Tanto o diálogo quanto o template. O tema é sempre **pedido** (genérico, serve para
+> qualquer negócio): *"Hi, how are you?"* → *"Is my order ready?"* → *"Yes, shipping soon!"* →
+> *"Thanks!"*. Template: *"Your order is ready."* (aprovado antes) e *"Your order is out for
+> delivery."* (criado ao vivo). Sem variável e sem frase longa: o revisor só precisa ver a mensagem
+> sair e chegar, e texto curto se digita rápido e não deixa nada para interpretar.
+
 ## 6.2 — 🚨 Antes de qualquer gravação: nenhum cliente real no quadro
 
 Se a inbox que você vai gravar tem conversa de cliente, ela **não pode aparecer**. Em farmácia isso
@@ -560,13 +574,29 @@ Se a inbox que você vai gravar tem conversa de cliente, ela **não pode aparece
 **O que a Meta pede:** *"Record a video of your app, **or WhatsApp Manager**, being used to create a
 message template."*
 
+> 🚨 **Recusado assim em 12/out/2026 (caso real, app do Chatwoot).** O vídeo
+> mostrava só a criação do template e parava no *In review*. A `whatsapp_business_management` foi
+> recusada pela **Developer Policy 1.6**, com este comentário do revisor:
+> *"We could not verify template creation or management… Please re-record showing (1) how a template
+> is created or selected, (2) where it is approved or managed in your interface (or Meta's WhatsApp
+> Manager), and (3) a message sent using that template to a test number."*
+> **O revisor quer ver o ciclo inteiro do template: criado, aprovado e enviado.** Só criar não basta.
+> O roteiro abaixo já foi corrigido.
+>
 > ❓ **"Eu crio o template pelo Chatwoot?"** **Não.** Template não se cria no Chatwoot nem no n8n —
 > se cria no **WhatsApp Manager**, o painel da Meta. O Chatwoot só *usa* um template já aprovado.
-> **No vídeo 1 você nem abre o Chatwoot.**
+> Por isso o vídeo tem **duas partes**: a criação e a aprovação no WhatsApp Manager, e o envio pelo
+> Chatwoot.
 >
-> ❓ **"Já tenho templates aprovados, não serve?"** Não. O revisor não confere se existe template na
-> conta; ele assiste a **ação sendo executada**. Você vai criar mais um, ao vivo, durante a
-> gravação — leva 40 segundos e o template ainda fica útil depois.
+> ❓ **"Preciso de um template já aprovado?"** **Sim, e com antecedência.** A aprovação leva de
+> minutos a horas e não dá para esperar com o vídeo gravando. Crie um template Utility **um dia
+> antes** (`order_ready`, *"Your order is ready."*, sem variável, regra do §6.1) e deixe
+> aprovar. No vídeo você cria **outro** ao vivo (`order_out_for_delivery`, *"Your order is out for
+> delivery."*), para mostrar a criação, e envia o que já está aprovado.
+>
+> ⚠️ **Teste o envio do template antes de gravar.** Ele só funciona se a WABA tiver **moeda e forma
+> de pagamento** (sem elas a Meta aceita o envio, mas a mensagem falha com o erro **131042**,
+> *"currency is not configured"*). Aconteceu no outro caso real em 29/set.
 
 **Antes de apertar o REC:**
 
@@ -579,20 +609,22 @@ message template."*
    de um revisor julgando uso de template. Filtro de data em *Last 7 days* deixa a lista curta.
 5. `Win + Shift + S` → aba de **vídeo** → selecionar só a área do navegador → **Gravar**.
 
-**Roteiro (≈ 60–90 s):**
+**Roteiro (≈ 2–3 min).** Grave com a tela dividida: o navegador à esquerda e, à direita, o WhatsApp
+Web do **número de teste** (o seu pessoal).
 
-| # | O que você faz na tela | Legenda por cima (inglês) |
-|---|---|---|
-| 1 | 3 s parado, mostrando o nome da conta no topo | `WhatsApp Manager — client's WhatsApp Business Account` |
-| 2 | Passar o mouse devagar pela lista de templates existentes | `Message templates managed through the whatsapp_business_management permission` |
-| 3 | Clicar em **Create template** | `Creating a new message template` |
-| 4 | **Utility** · nome do template · idioma · **Continue** | `Category: Utility — order and delivery updates` |
-| 5 | Digitar o corpo **devagar**, deixando o revisor ler | `Template body — the business notifies the customer` |
-| 6 | Clicar em **Submit** | `Template submitted to Meta for approval` |
-| 7 | 3 s na lista, com o template novo em **In review / Pending** | `Template created and listed under the client's WABA` |
+| # | O que você faz na tela | Legenda por cima (inglês) | Pedido do revisor |
+|---|---|---|---|
+| 1 | 3 s parado no WhatsApp Manager, mostrando o nome da conta no topo | `WhatsApp Manager — client's WhatsApp Business Account` | — |
+| 2 | **Create template** → **Utility** → nome `order_out_for_delivery`, idioma *English (US)*, corpo `Your order is out for delivery.` → **Submit** → 3 s na lista com ele em *In review* | `Creating a message template (Utility)` | (1) criado |
+| 3 | Na mesma lista, abrir o `order_ready` (aprovado antes) e mostrar o status **Active/Approved** | `Templates are approved and managed here` | (2) aprovado e gerenciado |
+| 4 | Abrir o Chatwoot → *Settings → Inboxes → a caixa*; se houver o botão de sincronizar templates, clicar | `Our app reads the approved templates through the API` | (2) na nossa interface |
+| 5 | **New conversation** → a caixa → número de teste → abrir os templates → escolher `order_ready` | `The agent selects the approved template` | (1) selecionado |
+| 6 | **Send**. A mensagem aparece na conversa, com ✓✓ | `Template message sent via the Cloud API` | (3) enviado |
+| 7 | À direita, *"Your order is ready."* chega no WhatsApp do número de teste. Responder `Thanks!` e mostrar a resposta chegando no Chatwoot | `Received by the test number — the reply returns to the same conversation` | (3) recebido |
 
-> ✅ **O vídeo só termina depois do Submit.** Erro cometido na primeira gravação: parou na tela de
-> edição. O último plano tem que ser a **lista** com o template novo em *In review*.
+> ✅ **O vídeo só termina depois que a mensagem do template chega no número de teste.** Há duas
+> gravações erradas no histórico: a primeira parou na tela de edição, e a segunda parou no
+> *In review* (essa foi a recusa de 12/out).
 >
 > ⛔ **Não grave criando template de marketing** — categoria errada atrai pergunta do revisor.
 > Escolha um Utility que você vá usar de verdade; a gravação resolve duas coisas de uma vez.
@@ -621,12 +653,12 @@ message."*
 | # | O que você faz na tela | Legenda por cima (inglês) |
 |---|---|---|
 | 1 | 3 s parado, as duas janelas visíveis | `Left: our app (shared inbox). Right: WhatsApp Web of a test user.` |
-| 2 | Na **direita**, digitar `Hello, is my order ready?` e Enter | `Test user sends a message to the business WhatsApp number` |
-| 3 | Levar o mouse à **esquerda** e esperar a mensagem aparecer sozinha (2–5 s) | `Incoming message received through the Cloud API webhook` |
-| 4 | Na **esquerda**, digitar a resposta | `Agent replies from our app's shared inbox` |
+| 2 | Na **direita**, mandar `Hi, how are you?` e depois `Is my order ready?` | `Test user sends a message to the business WhatsApp number` |
+| 3 | Levar o mouse à **esquerda** e esperar as mensagens aparecerem sozinhas (2–5 s) | `Incoming message received through the Cloud API webhook` |
+| 4 | Na **esquerda**, digitar `Yes, shipping soon!` | `Agent replies from our app's shared inbox` |
 | 5 | Clicar em **Send** | `Message sent via whatsapp_business_messaging` |
 | 6 | Levar o mouse à **direita** e esperar a resposta aparecer | `Message delivered and displayed in the WhatsApp client` |
-| 7 | Aproximar o mouse do ✓✓ e segurar 3 s | `Delivery confirmed` |
+| 7 | Aproximar o mouse do ✓✓ e segurar 3 s. Na direita, responder `Thanks!` e mostrar chegando na esquerda | `Delivery confirmed` |
 
 > 🔑 **O passo 6 É a prova.** O revisor vê a mensagem sair da esquerda e chegar na direita, no mesmo
 > quadro, sem corte. **Se você cortar o vídeo entre o envio e a chegada, a prova morre.**
@@ -666,6 +698,18 @@ Escreva **em inglês** — os revisores são um time global e o formulário não
 
 O formulário quer que a descrição responda quatro perguntas: *como isso ajuda o usuário do app; por
 que o app precisa; o que o app faz com o dado; por que seria pior sem*.
+
+> 🚨 **O texto longo vai no campo *"Tell us how you're using this permission or feature"* de CADA
+> permissão.** Na submissão do outro caso real (12/out/2026), esse campo das duas permissões recebeu só a
+> frase curta da descrição do negócio, e o texto preparado ficou de fora. Isso aparece no PDF que se
+> baixa depois, em *Download submission details*. A `whatsapp_business_management` foi recusada.
+> **Antes do Submit, abra cada cartão e confira que o texto do §7.2/§7.3 está lá.**
+>
+> Quando a recusa vier com *"use case is invalid or is not needed"*, o reenvio precisa responder,
+> em três blocos numerados, as perguntas que a própria Meta lista: **(1) which functionality
+> requires the permission; (2) how it enhances the app and how the integration works; (3) how it
+> enhances the end user's experience.** Há um modelo pronto em
+> `clientes/_ex-a pasta do seu cliente` §7.1.
 
 ## 7.1 — ⛔ Não use o botão "Use This" da IA da Meta
 
@@ -971,12 +1015,70 @@ Estado padrão de permissão nunca analisada, com `rejection_reasons` vazio. Nã
 
 Divergência conhecida entre API e tela. Quem manda é o formulário. §5.4.
 
+## 11.7.1 — Messaging aprovada e management recusada (*"Developer Policy 1.6 — Build a Trustworthy Product"*)
+
+A recusa diz *"your app's use case… is invalid or is not needed"*, e o revisor comenta que não
+conseguiu ver o template sendo criado ou gerenciado. Ou o vídeo parou no *In review*, ou o texto do
+cartão era curto, ou as duas coisas. Isso aconteceu no outro caso real em 12/out/2026.
+**O que fazer:**
+1. Regravar o vídeo 1 com o ciclo inteiro (criado → aprovado → enviado ao número de teste), conforme
+   o §6.3.
+2. Clicar em **Request again** só na management, com o texto em 3 blocos (§7).
+
+A messaging aprovada continua valendo. **Sem a management, o Embedded Signup de um cliente de fora
+do portfólio continua dando #2655111**: a coexistência precisa das duas.
+
 ## 11.8 — A inbox morre sozinha ~60 dias depois
 
-⚠️ **Pendência conhecida, não resolvida.** O `Whatsapp::TokenExchangeService` troca o `code` por um
-access token de 60 dias e guarda em `provider_config['api_key']`. Existe um
-`Whatsapp::ReauthorizationService`, mas **não foi verificado se ele renova sozinho**. Se não
-renovar, a inbox cai sem aviso. **Verifique antes de considerar a entrega fechada.**
+✅ **Conferido no código do Chatwoot (upstream `develop`, 26/out/2026): ele NÃO renova sozinho.**
+O `Whatsapp::TokenExchangeService` só troca o `code` pelo token e guarda em
+`provider_config['api_key']`. O `Whatsapp::ReauthorizationService` só roda quando alguém **refaz o
+popup** na caixa (botão de reconectar). Não há job de renovação (`app/jobs/channels/whatsapp/` só tem
+health e templates). Com a configuração de login de **60 dias**, a caixa cai em 60 dias.
+
+**Correção:** usar uma configuração de login com **token sem vencimento** (expiração do token =
+*Nunca*; se o modelo não oferecer, mudar só esse campo na configuração criada pelo modelo, sem tocar
+nas permissões — ver o aviso do §4.3) e gravar esse `config_id` no Chatwoot **antes** de conectar o
+número do cliente. ✅ Conferido na tela em 26/out/2026: a lista de modelos **não tem** variante sem vencimento (só Conversions API, Instagram Creator Marketplace, Instagram Onboarding, WhatsApp Measurement Partner e o de 60 dias), e o **Edit da configuração também não oferece *Never*** (tentado num caso real, config `<ID>`). Ou seja: **pela tela não existe config sem vencimento para o Embedded Signup.** Saídas: (a) refazer o popup na caixa antes do dia 60 (lembrete); (b) trocar o `api_key` da caixa pelo token de um usuário do sistema do próprio portfólio do parceiro (não vence), depois de dar a ele acesso à WABA do cliente. Caixa já conectada com o de 60 dias: refazer o popup nela depois da troca.
+Achado num caso real.
+
+## 11.9 — *"<Empresa> não pode integrar clientes no momento"* (e oferece compartilhar o contato)
+
+> ✅ **RESOLVIDO em 26/out/2026 — causa: o onboarding de Tech Provider não tinha sido concluído.**
+> App Review aprovado **não basta**: falta um clique final no painel do app. Caminho (muda de lugar
+> conforme a versão do painel — procurar): *Casos de uso → WhatsApp → Personalizar* (ou *Quickstart* /
+> configuração inicial) → botão **"Become a Partner" / "Tornar-se parceiro"** → **Continue onboarding** →
+> seguir até aparecer *"Congratulations! You are now a Tech Provider — 2 of 2 steps complete"*
+> (tela *Quickstart → Onboarding*). Na caso real isso foi feito em 31/ago e ninguém registrou como passo
+> obrigatório; no outro caso real ficou para trás e o popup barrou. **Não aparece na API** — permissões
+> `live` e portfólio `verified` não denunciam. O `public_profile` em acesso avançado (abaixo) não era a causa.
+> O histórico da investigação fica abaixo como registro.
+
+Popup abre, mostra a barreira e *"Sim, compartilhar minhas informações de contato"*. Visto no
+outro caso real em 26/out/2026, **com as duas permissões `live` e o portfólio `verified`** (conferido por
+API na hora). Ou seja, o bloqueio não aparece na API. 🟡 Causa provável, achada no painel:
+*Login do Facebook para Empresas → Configurações* mostra o aviso **"Facebook Login for Business requires
+advanced access — Your app has standard access to `public_profile`"**. O App Review aprova as duas do
+WhatsApp, mas o **`public_profile` fica em acesso padrão**, e com acesso padrão só quem tem papel no app
+consegue logar. Correção: clicar em **Get Advanced Access** (*App Review → Permissions and features →
+`public_profile`*). Não pede análise, porque o negócio já está verificado. Confirmar refazendo o popup
+e atualizar aqui.
+
+❌ **26/out, mais tarde: o `public_profile` foi para acesso avançado e o erro continuou.** Não era essa a
+causa, ou não era só ela. Comparação com o caso real (que conectou em coexistência em 15/set e 02/out):
+
+| Item | Caso 1 | Caso 2 |
+|---|---|---|
+| Duas permissões do WhatsApp `live` | ✅ | ✅ |
+| Domínio nos dois campos · SDK JS ligado | ✅ | ✅ (conferido no print) |
+| Webhooks com os 3 campos | ✅ | ✅ (API) |
+| Painel **Become a Partner → Become Tech Provider** com *"2 of 2 steps complete"* e a escolha **Independent Tech Provider** | ✅ 31/ago | ❓ ninguém conferiu |
+| Embedded Signup v3 (o AstraChat manda `sessionInfoVersion: "3"`) | rodou antes de 15/out | a Meta desliga v2/v3 em **15/out/2026**; o que define a versão é a **configuração** (escolher produtos = v4), e a doc de coexistência ainda usa `sessionInfoVersion: "3"`, então provavelmente não é isso |
+
+Próximo teste, que separa "o problema é o app" de "o problema é o AstraChat": abrir o **Hosted Embedded
+Signup** da própria Meta, `https://business.facebook.com/messaging/whatsapp/onboard/?app_id=<APP>&config_id=<CONFIG>`.
+Se der o mesmo erro, é status do app ou do parceiro (conferir o painel do Tech Provider e a **verificação
+de acesso** na Central de Segurança do portfólio). Se abrir normal, é o AstraChat.
 
 ---
 
@@ -1002,7 +1104,9 @@ renovar, a inbox cai sem aviso. **Verifique antes de considerar a entrega fechad
 - [ ] **Sem áudio** nos dois
 - [ ] Legendas em inglês nos pontos não óbvios
 - [ ] 1080p, cursor visível, só a janela no quadro
-- [ ] Vídeo 1 termina **depois** do Submit do template, com ele *In review*
+- [ ] Vídeo 1 mostra o ciclo inteiro: template criado, um aprovado no WhatsApp Manager, enviado pelo Chatwoot e recebido no número de teste (§6.3)
+- [ ] Template Utility criado **um dia antes** e já aprovado; envio testado antes de gravar (WABA com moeda e forma de pagamento)
+- [ ] O campo *"Tell us how you're using"* de **cada** permissão tem o texto longo do §7, e não a frase curta
 - [ ] Vídeo 2 mostra o envio **e** a chegada, sem corte no meio
 - [ ] Descrição escrita nas **duas** permissões, diferentes entre si
 - [ ] Nenhuma permissão além das duas no carrinho
@@ -1017,6 +1121,7 @@ renovar, a inbox cai sem aviso. **Verifique antes de considerar a entrega fechad
 
 - [ ] `access_level: advanced` e `is_live: true` nas duas
 - [ ] Verificação de acesso concluída (até 5 dias)
+- [ ] **Onboarding de Tech Provider concluído:** *"You are now a Tech Provider — 2 of 2 steps complete"* (§11.9). Sem esse clique final o popup diz *"<Empresa> não pode integrar clientes"*
 - [ ] Número do cliente conectado, `is_on_biz_app: true`
 - [ ] `POST /<WABA_ID>/subscribed_apps` feito
 - [ ] Override de callback apontando para a inbox certa

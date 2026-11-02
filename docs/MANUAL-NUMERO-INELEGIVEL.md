@@ -121,7 +121,8 @@ Estes bloqueios acontecem com **qualquer** número. Quem conserta é a agência,
 | Sintoma | Causa |
 |---|---|
 | **#2655111** | o app não tem **Acesso Avançado** (falta o App Review) |
-| Portfólio do cliente **cinza**, *"This Meta Business Account owns the app"* | o app foi criado no portfólio do cliente. Precisa ser da agência |
+| Portfólio do cliente **cinza**, *"This Meta Business Account owns the app"* | o app foi criado no **mesmo portfólio dos números**. O app precisa morar em outro: a BM nova do cliente, só para o app (padrão desde out/2026), ou o portfólio da agência |
+| **#1690130** — *"&lt;ID&gt; isn't a valid Business ID"* na **última tela** (*Confirm or edit your WhatsApp Business account*), com o número já verificado | 🟡 *causa provável, a confirmar:* o portfólio escolhido é o **mesmo que é dono do app**, a variante do caso acima em que o portfólio não fica cinza. O ID da mensagem é o **portfólio**, não o número. Confira em *Configurações → Básico* do app. Se o ID bater, refaça o fluxo com **outro portfólio** (ou crie um novo na tela). Se não bater, veja se você é **admin** desse portfólio e se ele não está restrito. Visto em 08/out/2026, no teste do app PlasZap |
 | *"Sorry, something went wrong"* logo ao abrir | configuração de login montada à mão. Recrie **pelo modelo** |
 | Erro de domínio | domínio da ferramenta faltando em `js_sdk_host_domains` **ou** `oauth_redirect_uris` |
 | O popup não oferece *"Conectar um app do WhatsApp Business"* | a configuração de login não pede coexistência (`featureType: whatsapp_business_app_onboarding`) |
