@@ -2,16 +2,46 @@
 
 ## Regras que não se pulam
 
-As quatro regras que não se pulam, mesmo que você não leia mais nada:
+As cinco regras que não se pulam, mesmo que você não leia mais nada:
 
-1. **`diagnostico-numero.mjs` antes de qualquer tentativa de registro.** É read-only, não gasta
+1. **Comece perguntando o que o dono já tem** (a lista está logo abaixo) e peça print ou acesso
+   de cada coisa. Não comece a configurar nada antes de saber de onde ele parte.
+2. **A documentação oficial da Meta é a referência — este kit é o mapa, não a lei.** Veja a data
+   de hoje, pesquise a doc oficial antes de cada etapa e diga ao dono o que mudou. Ficou em dúvida
+   ou bateu um erro? **Vá ler a doc antes de responder.** Nunca invente regra que não está escrita
+   lá. Nunca troque a versão da Graph API por conta própria.
+3. **`diagnostico-numero.mjs` antes de qualquer tentativa de registro.** É read-only, não gasta
    cota e não consome tentativa — e são só 10 tentativas por número a cada 72 horas.
-2. **Pesquise a documentação oficial da Meta antes de cada etapa** e diga ao dono o que mudou
-   desde que este material foi escrito. Nunca troque a versão da Graph API por conta própria.
-3. **Nada que muda o mundo roda sem o dono ver e dizer sim** — registrar número, criar, editar ou
+4. **Nada que muda o mundo roda sem o dono ver e dizer sim** — registrar número, criar, editar ou
    apagar template, mexer em webhook, submeter o App Review.
-4. **O `.env.local` nunca sai da máquina.** Não cole token em chat, não comite, não imprima
+5. **O `.env.local` nunca sai da máquina.** Não cole token em chat, não comite, não imprima
    inteiro em resposta.
+
+## 🧭 A primeira conversa: "o que você já tem?"
+
+Antes de qualquer passo, descubra **de onde o dono parte**. Metade do tempo perdido nesse processo
+vem de o agente começar do zero o que já existe, ou presumir pronto o que não existe. Pergunte em
+português simples, um bloco por vez, e **peça o print da tela** (ou o acesso) de cada item que ele
+disser que tem: "tenho" sem print vira suposição.
+
+| O que precisa | Para quê | Se ele não tem |
+|---|---|---|
+| Conta pessoal no Facebook | tudo na Meta pendura nela | criar (etapa 1 do `COMECE-AQUI.md`) |
+| **Portfólio comercial (BM)** | é dele que o app e o número vão ser | criar (etapa 2) |
+| **Informações da empresa preenchidas na BM** — nome legal (a razão social do CNPJ), país e site | sem elas a Meta bloqueia o envio e a verificação reprova | preencher **logo depois de criar a BM**, antes de pedir a verificação |
+| **Verificação do negócio aprovada** | sem ela, teto de envio no Caminho A e **trava total** no Caminho B | pedir já: é a etapa que mais demora (dias) |
+| **Site no domínio dele**, com política de privacidade, termos e exclusão de dados | a Meta exige as três páginas públicas no app | montar antes do app (etapa 4) |
+| **Domínio** próprio | o site, a ferramenta de atendimento e o webhook moram nele | comprar um |
+| **VPS** (servidor) com a ferramenta de atendimento (ex.: Chatwoot) | a coexistência e o webhook precisam de um endereço no ar 24 h | montar com o kit irmão: [github.com/plasdigital/vps-kit-aluno](https://github.com/plasdigital/vps-kit-aluno) |
+| App no `developers.facebook.com` | a integração: token, permissões, webhook | criar (etapa 5) |
+| O número: chip novo (Caminho A) ou o que a empresa já usa (Caminho B) | é o que vai para a API | decidir o caminho (logo abaixo) |
+
+**Peça os acessos que facilitam a vida dos dois:** que ele te dê acesso (ou fique ao seu lado com
+a tela aberta) à BM, ao app, ao domínio e à VPS. Com o acesso, você confere em vez de perguntar.
+Token, senha e chave entram no `.env.local`, nunca no chat (regra 5).
+
+Só depois dessa lista, monte o plano: **o que já está pronto, o que falta, em que ordem e quanto
+cada espera da Meta costuma levar** — e confirme esses prazos na doc de hoje.
 
 Esta pasta configura e verifica um **app da Meta** para WhatsApp: cria as credenciais, registra o
 número, cria os templates, prepara o App Review e diagnostica o que travou. Você é o operador; o
@@ -35,7 +65,27 @@ tela, renomeia permissão e altera preço por trimestre. Um kit que nunca olha p
 em silêncio e quebra na mão do dono.
 
 **Antes de cada etapa que muda alguma coisa, pesquise na internet e leia a fonte oficial.** Não é
-opcional e não precisa de permissão — é leitura.
+opcional e não precisa de permissão — é leitura. **Comece vendo a data de hoje** (a do sistema, não
+a do seu treinamento) e procure o que vale **nesta data**: o que você lembra da Meta pode já ter
+mudado, e este kit também.
+
+### 🛑 Ficou em dúvida ou deu erro? A doc antes da sua teoria
+
+Exemplo real do que **não** fazer: o agente travou num erro e passou a afirmar que o token "não
+valia porque não começava com tal coisa". Isso não está escrito em lugar nenhum da Meta: formato
+e prefixo de token **não são contrato**, mudam sem aviso e não dizem se o token funciona. O dono
+ficou batendo cabeça numa regra inventada.
+
+O que fazer, nessa ordem, toda vez que algo não bater:
+
+1. **Leia a mensagem de erro inteira**: código, subcódigo e `fbtrace_id`. Procure o código na doc
+   oficial (*Graph API → Error Handling* e a lista de códigos da *WhatsApp Cloud API*).
+2. **Teste em vez de supor.** Token se testa chamando a API (`node diagnostico-numero.mjs`, ou o
+   *Access Token Debugger* da Meta, que mostra validade, escopos e de qual app ele é), nunca
+   olhando para o texto dele.
+3. **Peça o print da tela** (seção abaixo) se o erro veio do painel e não do terminal.
+4. **Só então explique**, citando o link da doc que sustenta o que você disse. Não achou na doc?
+   Diga *"não achei isso na documentação oficial"*: nunca preencha o buraco com uma regra sua.
 
 | Assunto | O que abrir |
 |---|---|
@@ -159,6 +209,7 @@ Se ele precisar conferir, mostre os 6 primeiros caracteres e o tamanho.
 | O que aparece | O que realmente é |
 |---|---|
 | Erro **190**, "token inválido" — e funcionava ontem | O token de teste do painel vale **24 h**. Não quebrou nada: gere o token permanente (usuário do sistema) |
+| *"restricted from messaging users in this country"*, com número e empresa no Brasil | Não é país errado: as **Informações da empresa** da BM estão incompletas (nome legal, país, site). Preencha; durante a análise da verificação a Meta pode travar a edição, aí é esperar a resposta |
 | Erro **133016** | Estourou 10 tentativas de registro. O número fica travado **72 h**. Espere |
 | Erro **100** em template | Quase sempre é `PHONE_NUMBER_ID` no lugar de `WABA_ID`. Template é da conta |
 | Erro **200**, "sem permissão" | Falta o escopo `whatsapp_business_management` no token |

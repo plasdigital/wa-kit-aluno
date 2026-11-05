@@ -9,6 +9,14 @@ coexistência? A ordem desse caso, com quem faz o quê, está em
 > 🗣️ **Você não precisa decorar comando nenhum.** Abra o Claude Code (ou Codex, ou Cursor) dentro
 > desta pasta e converse em português: *"me conduza pelo Caminho A, uma etapa por vez"*. A pasta
 > se explica sozinha para ele — é o que o `AGENTS.md` faz.
+>
+> 🧭 **A primeira coisa que ele vai fazer é perguntar o que você já tem**: BM, verificação do
+> negócio, site, domínio, VPS, app, número. Separe os prints dessas telas e, se puder, dê acesso a
+> ele. Não tem VPS? O kit irmão monta: [github.com/plasdigital/vps-kit-aluno](https://github.com/plasdigital/vps-kit-aluno).
+>
+> 📚 **A documentação oficial da Meta manda mais que este kit.** A Meta muda tela, regra e preço
+> o tempo todo. O agente confere a doc do dia antes de cada etapa e sempre que der erro; se ele
+> afirmar uma regra sem link da Meta, peça a fonte.
 
 ---
 
@@ -67,7 +75,11 @@ O perfil comum, de pessoa física. Tudo na Meta pendura nele — não existe con
 
 Também chamado de **gerenciador de negócios** ou **BM** — *é a mesma coisa*, e saber disso evita
 achar que está na tela errada. É a "empresa" dentro da Meta: é dela que o app vai ser.
-**Deu certo quando:** o portfólio aparece em `business.facebook.com/settings` com um nome seu.
+Logo depois de criar, preencha as **Informações da empresa**: nome legal (a razão social do CNPJ),
+país e site. Faltando isso, a Meta bloqueia o envio ("restricted from messaging users in this
+country") e a verificação reprova, e durante a análise a edição desses campos pode travar.
+**Deu certo quando:** o portfólio aparece em `business.facebook.com/settings` com um nome seu e as
+Informações da empresa sem campo vazio.
 
 ### 3. Verificação do negócio ⏳ *(a mais demorada — comece por ela)*
 
