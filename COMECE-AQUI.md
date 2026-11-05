@@ -113,6 +113,20 @@ Em `developers.facebook.com` → criar app → adicionar o produto **WhatsApp**.
 
 **Deu certo quando:** o app aparece na sua lista e o painel do WhatsApp abre dentro dele.
 
+**Logo em seguida, ainda nesta etapa:**
+
+- **o token do usuário do sistema** — é ele que dá ao seu agente o acesso ao app. Em
+  `business.facebook.com` → *Configurações do negócio* → *Usuários do sistema*: crie um
+  administrador, adicione o app como ativo (controle total), gere o token marcando
+  `whatsapp_business_management` e `whatsapp_business_messaging` e cole no `.env.local`
+  (`cp .env.exemplo .env.local` primeiro). Ele aparece uma vez só.
+- **as configurações básicas e a publicação do app** — *Configurações do app → Básico*: ícone,
+  categoria, e-mail de contato e as três URLs da etapa 4; depois, publicar o app. O agente
+  conduz por print.
+
+> 🔎 **Você não precisa caçar ID nenhum.** Com o token no `.env.local`, o agente roda
+> `node descobrir-ids.mjs --gravar` e a Meta responde o app, as contas e os números.
+
 ### 6. WABA, número e nome de exibição
 
 A **WABA** é a conta de WhatsApp Business dentro do app; o número mora nela. Adicione o número e
@@ -124,11 +138,12 @@ celular. Se já tiver, apague a conta do WhatsApp nele antes.
 
 ### 7. As credenciais
 
+O `WA_TOKEN` (do usuário do sistema) você já colou na etapa 5. Os IDs, a máquina acha:
+
 ```bash
-cp .env.exemplo .env.local
+node descobrir-ids.mjs --gravar
 ```
 
-Preencha `WA_TOKEN`, `PHONE_NUMBER_ID` e `WABA_ID` — o `.env.exemplo` diz onde achar cada um.
 Depois, o comando que não gasta nada e diz a verdade:
 
 ```bash
@@ -138,8 +153,8 @@ node diagnostico-numero.mjs
 **Deu certo quando:** ele lista o número e traduz o status (provavelmente 🟡 *não registrado* —
 é o esperado nesta altura).
 
-⚠️ O token do painel vale **24 horas**. Serve para hoje. Antes de colocar em produção, gere o
-token permanente de usuário do sistema (§A7 do manual).
+⚠️ Usou o token temporário do painel em vez do usuário do sistema? Ele vale **24 horas**: troque
+pelo do usuário do sistema (§A7 do manual) antes de seguir.
 
 ### 8. 🎯 O registro — a etapa que não tem botão
 

@@ -43,6 +43,39 @@ Token, senha e chave entram no `.env.local`, nunca no chat (regra 5).
 Só depois dessa lista, monte o plano: **o que já está pronto, o que falta, em que ordem e quanto
 cada espera da Meta costuma levar** — e confirme esses prazos na doc de hoje.
 
+## 🔑 O dono criou o app? O próximo passo é o token — e quem acha os IDs é você
+
+⛔ **Não peça ID nenhum ao dono** (nem "o ID do WhatsApp", nem WABA, nem Phone Number ID). Quem
+acabou de criar o app não sabe onde achar, e nem precisa: com o token certo, a Meta responde todos
+eles. Pedir ID logo depois do "criei o app" é o erro mais comum deste kit, e trava a conversa
+numa caça que não leva a nada.
+
+**Não seja afobado.** Conduza **uma etapa por vez, a partir de onde o dono está**. Se ele disse
+"criei o app", a conversa é sobre o token e a configuração do app — não sobre número, template
+ou registro. Cada etapa só começa quando a anterior estiver de pé.
+
+A ordem, logo depois de o app existir:
+
+1. **O token do usuário do sistema** (é ele que te dá acesso ao app; o temporário do painel morre
+   em 24 h). Conduza o dono, com print se a tela divergir:
+   `business.facebook.com` → **Configurações do negócio** → **Usuários do sistema** → criar um
+   usuário **administrador** → **Adicionar ativos** → o **app** (e a WABA, se já existir) com
+   controle total → **Gerar novo token** → escolher o app → marcar
+   `whatsapp_business_management` e `whatsapp_business_messaging` (confira na doc de hoje se a
+   lista de permissões mudou). O token aparece **uma vez só**: ele cola direto no `.env.local`
+   (`WA_TOKEN=`). Se colar no chat, grave no `.env.local` e siga sem repetir o valor.
+2. **Você descobre o resto:** `node descobrir-ids.mjs --gravar`. Ele pergunta à Meta de qual app
+   é o token, se ele vence, quais permissões tem, quais WABAs e números enxerga, e preenche os
+   campos vazios do `.env.local`. Se o token valer para "todos os ativos", ele pede a BM: peça ao
+   dono o **link** da página de `business.facebook.com` (o número depois de `business_id=`) e
+   rode `--bm <número>`. Mais de uma WABA ou número? Mostre a lista e o dono escolhe pelo nome.
+3. **As configurações básicas do app e a publicação.** Antes de número e template, deixe o app
+   pronto: em **Configurações do app → Básico**, ícone, categoria, e-mail de contato, as URLs de
+   **política de privacidade**, **termos** e **exclusão de dados** (as três páginas do site dele)
+   e o domínio; depois, **publicar o app** (tirar do modo de desenvolvimento). Os nomes de tela e
+   o que a Meta exige para publicar mudam: confira na doc de hoje e conduza por print.
+4. **Só então** o número (Caminho A ou B), o diagnóstico, o registro, os templates e o webhook.
+
 Esta pasta configura e verifica um **app da Meta** para WhatsApp: cria as credenciais, registra o
 número, cria os templates, prepara o App Review e diagnostica o que travou. Você é o operador; o
 dono não abre terminal e não decora comando nenhum — ele conversa com você em português.
@@ -148,6 +181,7 @@ valor na conversa.
 
 | O dono pede | O comando |
 |---|---|
+| "acabei de gerar o token" · "quais são meus IDs?" | `node descobrir-ids.mjs` (e `--gravar` para preencher o `.env.local`) |
 | "como está meu número?" · "por que não envia?" | `node diagnostico-numero.mjs` |
 | "quais templates eu tenho?" | `node templates.mjs listar` |
 | "só os aprovados" | `node templates.mjs listar APPROVED` |
@@ -178,10 +212,14 @@ coisas diferentes — e o erro por falta é enganoso, então confira antes:
 
 | Variável | Quem precisa | Como conferir sem gastar nada |
 |---|---|---|
-| `WA_TOKEN` | todos que falam com a Meta | `node diagnostico-numero.mjs` responde algo em vez de erro 190 |
+| `WA_TOKEN` | todos que falam com a Meta | `node descobrir-ids.mjs` responde de qual app ele é, se vence e o que enxerga |
 | `PHONE_NUMBER_ID` | diagnóstico, registro, `--media` | é um id de ~15 dígitos, **não** o telefone |
 | `WABA_ID` | tudo de template | template é da **conta**, não do número |
 | `APP_ID` | `upload-midia --handle` | o número no topo do painel do app |
+| `BUSINESS_ID` | `descobrir-ids`, quando o token vale para todos os ativos | o número depois de `business_id=` no link da BM |
+
+👉 **Só o `WA_TOKEN` vem do dono.** `APP_ID`, `WABA_ID` e `PHONE_NUMBER_ID` saem do
+`node descobrir-ids.mjs --gravar`; não mande o dono procurar.
 
 ⛔ **O `.env.local` nunca sai desta máquina.** Não cole valor em chat, não mande por e-mail, não
 comite, não imprima o token inteiro em resposta — nem quando o dono pedir "só para conferir".

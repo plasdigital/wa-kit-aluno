@@ -1210,7 +1210,7 @@ disso.
 
 | Assunto | Onde |
 |---|---|
-| Os scripts (`diagnostico-numero`, `registrar-numero`, `templates`, `upload-midia`) | a raiz desta pasta |
+| Os scripts (`descobrir-ids`, `diagnostico-numero`, `registrar-numero`, `templates`, `upload-midia`) | a raiz desta pasta |
 | O passo a passo enxuto, do zero | [`../COMECE-AQUI.md`](../COMECE-AQUI.md) |
 | O App Review, tela por tela | [`MANUAL-APP-REVIEW.md`](MANUAL-APP-REVIEW.md) |
 | Número inelegível na coexistência — cada código, onde resolve | [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md) |
