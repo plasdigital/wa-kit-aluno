@@ -31,6 +31,7 @@ Este documento é longo de propósito: é a **referência única**, não um resu
 | Passar pelo App Review | **§7** |
 | Consertar algo que quebrou | **§8** — catálogo de erros |
 | Número **inelegível** na coexistência | [`MANUAL-NUMERO-INELEGIVEL.md`](MANUAL-NUMERO-INELEGIVEL.md) — cada código e onde se resolve |
+| Onde trava **de verdade** (verificação, pagamento, App Review, coexistência, webhook, templates), caso a caso | [`LICOES-DE-CAMPO.md`](LICOES-DE-CAMPO.md) |
 | Saber o que custa | **§9** |
 | Conferir se terminou | **§10** — checklists |
 
