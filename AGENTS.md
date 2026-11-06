@@ -43,16 +43,16 @@ Token, senha e chave entram no `.env.local`, nunca no chat (regra 5).
 Só depois dessa lista, monte o plano: **o que já está pronto, o que falta, em que ordem e quanto
 cada espera da Meta costuma levar** — e confirme esses prazos na doc de hoje.
 
-## 🔑 O dono criou o app? O próximo passo é o token — e quem acha os IDs é você
+## 🔑 O dono criou o app? Primeiro o token e o app; o ID da WABA só depois do número
 
-⛔ **Não peça ID nenhum ao dono** (nem "o ID do WhatsApp", nem WABA, nem Phone Number ID). Quem
-acabou de criar o app não sabe onde achar, e nem precisa: com o token certo, a Meta responde todos
-eles. Pedir ID logo depois do "criei o app" é o erro mais comum deste kit, e trava a conversa
-numa caça que não leva a nada.
+⛔ **ID da WABA e do número só se pede na etapa certa: depois que o número estiver conectado.**
+Antes disso eles nem existem para o que interessa. Quem acabou de dizer "criei o app" ainda não
+tem número conectado, e pedir "o ID do WhatsApp" nessa hora trava a conversa numa caça que não
+leva a nada. Esse foi o erro mais comum deste kit.
 
 **Não seja afobado.** Conduza **uma etapa por vez, a partir de onde o dono está**. Se ele disse
-"criei o app", a conversa é sobre o token e a configuração do app — não sobre número, template
-ou registro. Cada etapa só começa quando a anterior estiver de pé.
+"criei o app", a conversa é sobre o token e a configuração do app, não sobre número, template ou
+registro. Cada etapa só começa quando a anterior estiver de pé.
 
 A ordem, logo depois de o app existir:
 
@@ -64,17 +64,24 @@ A ordem, logo depois de o app existir:
    `whatsapp_business_management` e `whatsapp_business_messaging` (confira na doc de hoje se a
    lista de permissões mudou). O token aparece **uma vez só**: ele cola direto no `.env.local`
    (`WA_TOKEN=`). Se colar no chat, grave no `.env.local` e siga sem repetir o valor.
-2. **Você descobre o resto:** `node descobrir-ids.mjs --gravar`. Ele pergunta à Meta de qual app
-   é o token, se ele vence, quais permissões tem, quais WABAs e números enxerga, e preenche os
-   campos vazios do `.env.local`. Se o token valer para "todos os ativos", ele pede a BM: peça ao
-   dono o **link** da página de `business.facebook.com` (o número depois de `business_id=`) e
-   rode `--bm <número>`. Mais de uma WABA ou número? Mostre a lista e o dono escolhe pelo nome.
-3. **As configurações básicas do app e a publicação.** Antes de número e template, deixe o app
-   pronto: em **Configurações do app → Básico**, ícone, categoria, e-mail de contato, as URLs de
-   **política de privacidade**, **termos** e **exclusão de dados** (as três páginas do site dele)
-   e o domínio; depois, **publicar o app** (tirar do modo de desenvolvimento). Os nomes de tela e
-   o que a Meta exige para publicar mudam: confira na doc de hoje e conduza por print.
-4. **Só então** o número (Caminho A ou B), o diagnóstico, o registro, os templates e o webhook.
+   Para conferir o token, rode `node descobrir-ids.mjs`: ele diz de qual app é, se vence e
+   quais permissões tem. Nesta altura, é normal ele não mostrar número nenhum.
+2. **As configurações básicas do app e a publicação.** Em **Configurações do app → Básico**:
+   ícone, categoria, e-mail de contato, as URLs de **política de privacidade**, **termos** e
+   **exclusão de dados** (as três páginas do site dele) e o domínio; depois, **publicar o app**
+   (tirar do modo de desenvolvimento). Os nomes de tela e o que a Meta exige para publicar mudam:
+   confira na doc de hoje e conduza por print.
+3. **Conectar o número** (Caminho A ou B). Sem número conectado, o trabalho é só esse: ligar o
+   número ao app.
+4. **Agora, sim, os IDs.** Com o número conectado, **tente ver você mesmo primeiro**:
+   `node descobrir-ids.mjs --gravar` pergunta à Meta quais WABAs e números o token enxerga e
+   preenche os campos vazios do `.env.local`. Se o token valer para "todos os ativos", ele pede
+   a BM: peça ao dono o **link** da página de `business.facebook.com` (o número depois de
+   `business_id=`) e rode `--bm <número>`. Mais de uma WABA ou número? Mostre a lista e o dono
+   escolhe pelo nome. **Não apareceu?** Aí peça ao dono o ID da WABA e o do número, dizendo onde
+   ficam: no painel do app, em *WhatsApp → Configuração da API* (ou no WhatsApp Manager), com
+   print se ele não achar.
+5. Depois: o diagnóstico, o registro, os templates e o webhook.
 
 Esta pasta configura e verifica um **app da Meta** para WhatsApp: cria as credenciais, registra o
 número, cria os templates, prepara o App Review e diagnostica o que travou. Você é o operador; o
@@ -218,8 +225,9 @@ coisas diferentes — e o erro por falta é enganoso, então confira antes:
 | `APP_ID` | `upload-midia --handle` | o número no topo do painel do app |
 | `BUSINESS_ID` | `descobrir-ids`, quando o token vale para todos os ativos | o número depois de `business_id=` no link da BM |
 
-👉 **Só o `WA_TOKEN` vem do dono.** `APP_ID`, `WABA_ID` e `PHONE_NUMBER_ID` saem do
-`node descobrir-ids.mjs --gravar`; não mande o dono procurar.
+👉 **`WABA_ID` e `PHONE_NUMBER_ID` só depois do número conectado.** Primeiro tente
+`node descobrir-ids.mjs --gravar`; só se ele não enxergar, peça ao dono (painel do app →
+*WhatsApp → Configuração da API*).
 
 ⛔ **O `.env.local` nunca sai desta máquina.** Não cole valor em chat, não mande por e-mail, não
 comite, não imprima o token inteiro em resposta — nem quando o dono pedir "só para conferir".

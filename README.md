@@ -47,7 +47,7 @@ forem rodados na hora errada.
 
 | Comando | O que faz |
 |---|---|
-| `node descobrir-ids.mjs` | **read-only** — com só o token do usuário do sistema, descobre o app, as contas (WABA) e os números; `--gravar` preenche o `.env.local`. Ninguém caça ID na mão |
+| `node descobrir-ids.mjs` | **read-only** — com só o token do usuário do sistema, descobre o app, as contas (WABA) e os números; `--gravar` preenche o `.env.local`. Os IDs de WABA e número aparecem depois que o número está conectado |
 | `node diagnostico-numero.mjs` | **read-only** — lê o estado real do número e traduz cada campo. Rode antes de qualquer coisa |
 | `node registrar-numero.mjs` | as 3 etapas do registro, um comando por etapa (limite rígido: 10 tentativas / 72 h) |
 | `node templates.mjs` | listar, ver, validar, criar, editar e apagar templates de mensagem |

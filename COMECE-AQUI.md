@@ -124,8 +124,9 @@ Em `developers.facebook.com` → criar app → adicionar o produto **WhatsApp**.
   categoria, e-mail de contato e as três URLs da etapa 4; depois, publicar o app. O agente
   conduz por print.
 
-> 🔎 **Você não precisa caçar ID nenhum.** Com o token no `.env.local`, o agente roda
-> `node descobrir-ids.mjs --gravar` e a Meta responde o app, as contas e os números.
+> 🔎 **Nesta etapa ainda não tem ID para procurar.** O ID da conta (WABA) e o do número só
+> entram depois que o número estiver conectado (etapa 6); na etapa 7 o agente tenta achar sozinho
+> com `node descobrir-ids.mjs --gravar` antes de pedir para você.
 
 ### 6. WABA, número e nome de exibição
 
@@ -138,7 +139,7 @@ celular. Se já tiver, apague a conta do WhatsApp nele antes.
 
 ### 7. As credenciais
 
-O `WA_TOKEN` (do usuário do sistema) você já colou na etapa 5. Os IDs, a máquina acha:
+O `WA_TOKEN` (do usuário do sistema) você já colou na etapa 5. Com o número conectado (etapa 6), o agente acha os IDs; se não aparecerem, ele pede para você, dizendo onde ficam:
 
 ```bash
 node descobrir-ids.mjs --gravar
