@@ -255,7 +255,9 @@ Se ele precisar conferir, mostre os 6 primeiros caracteres e o tamanho.
 | O que aparece | O que realmente é |
 |---|---|
 | Erro **190**, "token inválido" — e funcionava ontem | O token de teste do painel vale **24 h**. Não quebrou nada: gere o token permanente (usuário do sistema) |
-| *"restricted from messaging users in this country"*, com número e empresa no Brasil | Não é país errado: as **Informações da empresa** da BM estão incompletas (nome legal, país, site). Preencha; durante a análise da verificação a Meta pode travar a edição, aí é esperar a resposta |
+| **`130497`**, *"restricted from messaging users in this country"*, com número e empresa no Brasil | Não é país errado: as **Informações da empresa** da BM estão incompletas (`131000`: nome legal, país, site) e/ou a verificação não passou (`141010`). Preencha; durante a análise a Meta pode travar a edição, aí é esperar |
+| Envio responde `accepted` e a mensagem não chega · **`131042`** · **`141006`** | Pagamento: moeda ou cartão faltando **na WABA** (não na conta de anúncios), ou cartão recusado. A recusa chega **pelo webhook**, segundos depois. Trocar de cartão resolve; recadastrar o mesmo, não |
+| **`131048`** com qualidade verde | Limite de conversas iniciadas do **portfólio inteiro** (os números dividem a cota) |
 | Erro **133016** | Estourou 10 tentativas de registro. O número fica travado **72 h**. Espere |
 | Erro **100** em template | Quase sempre é `PHONE_NUMBER_ID` no lugar de `WABA_ID`. Template é da conta |
 | Erro **200**, "sem permissão" | Falta o escopo `whatsapp_business_management` no token |
@@ -278,6 +280,7 @@ Se ele precisar conferir, mostre os 6 primeiros caracteres e o tamanho.
 | O App Review tela por tela, os dois vídeos, os textos | [`docs/MANUAL-APP-REVIEW.md`](docs/MANUAL-APP-REVIEW.md) |
 | O número do cliente não entra na coexistência ("inelegível", código de erro) | [`docs/MANUAL-NUMERO-INELEGIVEL.md`](docs/MANUAL-NUMERO-INELEGIVEL.md) — cada código, e se resolve no celular, no portfólio ou no app |
 | Número de **cliente** pela coexistência: a ordem das 14 etapas, quem faz cada uma, as esperas da Meta | [`docs/SEQUENCIA-COEXISTENCIA.md`](docs/SEQUENCIA-COEXISTENCIA.md) — a regra nº 1: o portfólio dono do app nunca é o dos números |
+| Onde cada etapa trava **de verdade**, com o que destravou nos casos reais (verificação, pagamento, App Review, coexistência, webhook, templates) | [`docs/LICOES-DE-CAMPO.md`](docs/LICOES-DE-CAMPO.md) — leia a seção da etapa **antes** de conduzir o dono por ela |
 | A VPS com Chatwoot que a coexistência exige | [github.com/plasdigital/vps-kit-aluno](https://github.com/plasdigital/vps-kit-aluno) |
 
 **Leia o manual antes de responder qualquer pergunta de "por quê".** Ele é longo de propósito:

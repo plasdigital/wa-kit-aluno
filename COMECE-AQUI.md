@@ -92,6 +92,20 @@ A Meta conferindo que a empresa existe: CNPJ, endereço, documento. Leva **dias*
 - **Caminho B:** **trava**. Sem `business_verification_passes: true` o formulário do App Review
   nem deixa submeter.
 
+**Antes de clicar em "iniciar verificação", confira — é aqui que ela reprova:**
+
+- [ ] **Informações da empresa** preenchidas na BM: nome legal, país, endereço e site. Faltando,
+      a verificação não passa e o número ainda fica bloqueado para enviar (erro `130497`).
+- [ ] **Nome legal = razão social da Receita, letra por letra.** MEI: a razão social costuma
+      terminar com os 11 dígitos do CPF do titular, e eles entram.
+- [ ] Nome fantasia que não aparece em documento oficial? Deixe o *nome alternativo* **vazio**.
+- [ ] Documentos à mão: cartão CNPJ atualizado e uma conta de consumo com o **mesmo endereço**.
+- [ ] O site do campo "site" abre e é da empresa.
+
+Recusou? O motivo só aparece na **Central de Segurança** da BM, não pela API. Durante a análise a
+Meta pode travar a edição dos dados da empresa: aí é esperar a resposta. O detalhe de cada caso
+está em [`docs/LICOES-DE-CAMPO.md`](docs/LICOES-DE-CAMPO.md) §1.
+
 **Deu certo quando:** a Central de Empresas mostra o selo de verificado no portfólio.
 
 > ⏳ Enquanto ela roda, **não fique parado**: as etapas 4, 5, 6 e 7 não dependem dela.
